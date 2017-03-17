@@ -1,25 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="192dp"
+        android:layout_height="80dp"
         android:src="@drawable/pic1"
         android:scaleType="centerCrop"/>
-
-    <ImageView
-        android:layout_marginTop="10dp"
+    <RelativeLayout
+        android:layout_marginTop="150dp"
         android:layout_width="match_parent"
-        android:layout_height="192dp"
-        android:src="@drawable/pic1"
-        android:scaleType="centerCrop"/>
+        android:layout_height="match_parent">
 
-    <ImageView
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="192dp"
-        android:src="@drawable/pic1"
-        android:scaleType="centerCrop"/>
+            <Button
+                android:id="@+id/history_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="History"
+                android:textSize="30sp"
+                android:textColor="@android:color/white"
+                android:background="#4447de"
+                android:layout_margin="20dp"/>
+
+            <Button
+                android:layout_below="@id/history_button"
+                android:id="@+id/alergic_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Alergic"
+                android:textSize="30sp"
+                android:textColor="@android:color/white"
+                android:background="#4447de"
+                android:layout_margin="20dp"/>
+
+            <Button
+                android:layout_below="@id/alergic_button"
+                android:id="@+id/mediclaim_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Mediclaim Status"
+                android:textSize="30sp"
+                android:textColor="@android:color/white"
+                android:background="#4447de"
+                android:layout_margin="20dp"/>
+
+
+        <LinearLayout
+            android:id="@+id/Landing_hidden_linear_layout"
+            android:visibility="invisible"
+            android:layout_below="@id/mediclaim_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/pending_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Pending"
+                android:textSize="30sp"
+                android:textColor="@android:color/white"
+                android:background="#4447de"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"/>
+
+            <Button
+                android:id="@+id/completed_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Completed"
+                android:textSize="30sp"
+                android:textColor="@android:color/white"
+                android:background="#4447de"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
 </LinearLayout>
