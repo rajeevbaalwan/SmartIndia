@@ -46,8 +46,8 @@ public class LandingAdapter extends RecyclerView.Adapter<LandingAdapter.ItemView
         private TextView medName;
         public ItemViewHolder(View itemView) {
             super(itemView);
-            time= (TextView) itemView.findViewById(R.id.current_medicine_timing);
-            medName= (TextView) itemView.findViewById(R.id.current_medicine_names);
+            time= (TextView) itemView.findViewById(R.id.current_medicine_time);
+            medName= (TextView) itemView.findViewById(R.id.current_medicine_name);
         }
     }
 }

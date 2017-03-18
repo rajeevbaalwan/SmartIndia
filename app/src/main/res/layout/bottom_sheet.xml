@@ -1,14 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/bottom_sheet_swipe_up_layout">
 
-    <ImageView
+    <LinearLayout
+        android:id="@+id/hidden_swipe_up_layout"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:src="@drawable/pic1"
-        android:scaleType="centerCrop"/>
+        android:orientation="vertical"
+        android:background="#1a9bcb" >
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:src="@drawable/collapse_arrow"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/hidden_swipe_down_layout"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:orientation="vertical"
+        android:background="#1a9bcb" >
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:src="@drawable/expand_arrow"/>
+    </LinearLayout>
+
     <RelativeLayout
         android:layout_marginTop="150dp"
         android:layout_width="match_parent"
@@ -21,7 +44,7 @@
                 android:text="History"
                 android:textSize="30sp"
                 android:textColor="@android:color/white"
-                android:background="#4447de"
+                android:background="@drawable/round_corner_rectangular_button"
                 android:layout_margin="20dp"/>
 
             <Button
@@ -29,10 +52,10 @@
                 android:id="@+id/alergic_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Alergic"
+                android:text="Alergies"
                 android:textSize="30sp"
                 android:textColor="@android:color/white"
-                android:background="#4447de"
+                android:background="@drawable/round_corner_rectangular_button"
                 android:layout_margin="20dp"/>
 
             <Button
@@ -43,12 +66,12 @@
                 android:text="Mediclaim Status"
                 android:textSize="30sp"
                 android:textColor="@android:color/white"
-                android:background="#4447de"
+                android:background="@drawable/round_corner_rectangular_button"
                 android:layout_margin="20dp"/>
 
 
         <LinearLayout
-            android:id="@+id/Landing_hidden_linear_layout"
+            android:id="@+id/landing_hidden_linear_layout"
             android:visibility="invisible"
             android:layout_below="@id/mediclaim_status"
             android:layout_width="match_parent"
@@ -62,7 +85,7 @@
                 android:text="Pending"
                 android:textSize="30sp"
                 android:textColor="@android:color/white"
-                android:background="#4447de"
+                android:background="@drawable/round_corner_rectangular_button"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"/>
 
@@ -73,7 +96,7 @@
                 android:text="Completed"
                 android:textSize="30sp"
                 android:textColor="@android:color/white"
-                android:background="#4447de"
+                android:background="@drawable/round_corner_rectangular_button"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"/>
@@ -81,4 +104,4 @@
         </LinearLayout>
 
     </RelativeLayout>
-</LinearLayout>
+</RelativeLayout>

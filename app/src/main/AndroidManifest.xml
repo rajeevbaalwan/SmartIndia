@@ -15,7 +15,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.HistoryActivity"></activity>
+        <activity android:name=".Activities.HistoryActivity" />
+        <activity android:name=".Activities.AlergyActivity" />
+        <activity android:name=".Activities.PendingMediclaimActivity" />
+        <activity android:name=".Activities.CompletedMediclaimActivity"></activity>
     </application>
 
 </manifest>

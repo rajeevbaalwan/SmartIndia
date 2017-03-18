@@ -6,42 +6,41 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 
-import com.example.admin.smartindia.Adapters.HistoryAdapter;
-import com.example.admin.smartindia.Models.UserMedicalHistoryData;
+import com.example.admin.smartindia.Adapters.CompletedMediclaimAdapter;
+import com.example.admin.smartindia.Models.CompletedMediclaimData;
 import com.example.admin.smartindia.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HistoryActivity extends AppCompatActivity {
+public class CompletedMediclaimActivity extends AppCompatActivity {
 
-    private Toolbar toolbar;
     private RecyclerView recyclerView;
-    private HistoryAdapter historyAdapter;
-
+    private CompletedMediclaimAdapter adapter;
+    private Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_history);
+        setContentView(R.layout.activity_completed_mediclaim);
+
+        recyclerView= (RecyclerView) findViewById(R.id.completed_mediclaim_recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        adapter=new CompletedMediclaimAdapter(this,getData());
+        recyclerView.setAdapter(adapter);
 
         toolbar= (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Your Medical History");
+        getSupportActionBar().setTitle("Completed MediClaims");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        recyclerView= (RecyclerView) findViewById(R.id.history_recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        historyAdapter=new HistoryAdapter(getData(),this);
-        recyclerView.setAdapter(historyAdapter);
     }
 
-    private List<UserMedicalHistoryData> getData() {
-        ArrayList<UserMedicalHistoryData> list=new ArrayList<>();
-
-        for(int i=0;i<10;i++){
-            list.add(new UserMedicalHistoryData("Hospital name","Doctor name","Issue","Medicines","Date"));
+    private List<CompletedMediclaimData> getData() {
+        ArrayList<CompletedMediclaimData> list=new ArrayList<>();
+        for(int i=0;i<5;i++){
+            list.add(new CompletedMediclaimData("Hospital Name","Date","20000"));
         }
         return list;
     }
