@@ -1,107 +1,226 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="match_parent"
-    android:id="@+id/bottom_sheet_swipe_up_layout">
-
-    <LinearLayout
-        android:id="@+id/hidden_swipe_up_layout"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:orientation="vertical"
-        android:background="#1a9bcb" >
-        <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_gravity="center"
-            android:src="@drawable/collapse_arrow"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/hidden_swipe_down_layout"
-        android:visibility="invisible"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:orientation="vertical"
-        android:background="#1a9bcb" >
-        <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_gravity="center"
-            android:src="@drawable/expand_arrow"/>
-    </LinearLayout>
+    android:background="#eceff7">
 
     <RelativeLayout
-        android:layout_marginTop="150dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-            <Button
-                android:id="@+id/history_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="History"
-                android:textSize="30sp"
-                android:textColor="@android:color/white"
-                android:background="@drawable/round_corner_rectangular_button"
-                android:layout_margin="20dp"/>
-
-            <Button
-                android:layout_below="@id/history_button"
-                android:id="@+id/alergic_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Alergies"
-                android:textSize="30sp"
-                android:textColor="@android:color/white"
-                android:background="@drawable/round_corner_rectangular_button"
-                android:layout_margin="20dp"/>
-
-            <Button
-                android:layout_below="@id/alergic_button"
-                android:id="@+id/mediclaim_status"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Mediclaim Status"
-                android:textSize="30sp"
-                android:textColor="@android:color/white"
-                android:background="@drawable/round_corner_rectangular_button"
-                android:layout_margin="20dp"/>
-
+        android:layout_height="wrap_content"
+        android:id="@+id/swipe_layout_container">
+        <LinearLayout
+            android:id="@+id/bottom_sheet_swipe_up_layout"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="vertical"
+            android:background="#1a9bcb" >
+            <ImageView
+                android:id="@+id/arrow_image_View"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                android:src="@drawable/expand_arrow"/>
+        </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/landing_hidden_linear_layout"
             android:visibility="invisible"
-            android:layout_below="@id/mediclaim_status"
+            android:id="@+id/bottom_sheet_swipe_down_layout"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="vertical"
+            android:background="#1a9bcb" >
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+        <LinearLayout
+            android:layout_below="@id/swipe_layout_container"
+            android:id="@+id/bottom_sheet_buttons_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:id="@+id/history_button"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="20dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/bottom_sheet_buttons_background">
+                    <ImageView
+                        android:layout_weight="2"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:src="@drawable/history_icon"
+                        android:scaleType="centerInside"/>
+                    <TextView
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:text="History"
+                        android:textSize="25sp"
+                        android:textStyle="bold"
+                        android:gravity="top|center_horizontal"
+                        android:textColor="@android:color/white"
+                        android:background="@drawable/bottom_sheet_buttons_background"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/alergic_button"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="20dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/bottom_sheet_buttons_background">
+                    <ImageView
+                        android:layout_weight="2"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:src="@drawable/alergy_icon"
+                        android:scaleType="centerInside"/>
+                    <TextView
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:text="Alergies"
+                        android:textSize="25sp"
+                        android:textStyle="bold"
+                        android:gravity="top|center_horizontal"
+                        android:textColor="@android:color/white"
+                        android:background="@drawable/bottom_sheet_buttons_background"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/mediclain_status_button"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/mediclaim_status_button"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="20dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/bottom_sheet_buttons_background">
+                    <ImageView
+                        android:layout_weight="2"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:src="@drawable/mediclaim_icon"
+                        android:scaleType="centerInside"/>
+                    <TextView
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:text="Mediclaim Status"
+                        android:textSize="25sp"
+                        android:textStyle="bold"
+                        android:gravity="top|center_horizontal"
+                        android:textColor="@android:color/white"
+                        android:background="@drawable/bottom_sheet_buttons_background"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/profile_button"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="20dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/bottom_sheet_buttons_background">
+                    <ImageView
+                        android:layout_weight="2"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:src="@drawable/profile_icon_male"
+                        android:scaleType="centerInside" />
+                    <TextView
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:text="Profile"
+                        android:textSize="25sp"
+                        android:textStyle="bold"
+                        android:gravity="top|center_horizontal"
+                        android:textColor="@android:color/white"
+                        android:background="@drawable/bottom_sheet_buttons_background"
+                        />
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+    <RelativeLayout
+        android:visibility="invisible"
+        android:layout_below="@id/swipe_layout_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/mediclaim_option_buttons_container">
+
+        <LinearLayout
+            android:visibility="invisible"
+            android:id="@+id/mediclaim_option_buttons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_alignParentBottom="true">
 
             <Button
+                android:layout_weight="1"
                 android:id="@+id/pending_button"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:text="Pending"
                 android:textSize="30sp"
                 android:textColor="@android:color/white"
-                android:background="@drawable/round_corner_rectangular_button"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"/>
+                android:background="@drawable/bottom_sheet_buttons_background" />
 
             <Button
+                android:layout_weight="1"
                 android:id="@+id/completed_button"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:text="Completed"
                 android:textSize="30sp"
                 android:textColor="@android:color/white"
-                android:background="@drawable/round_corner_rectangular_button"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"/>
-
+                android:background="@drawable/bottom_sheet_buttons_background"
+                android:layout_marginTop="10dp" />
         </LinearLayout>
-
     </RelativeLayout>
 </RelativeLayout>

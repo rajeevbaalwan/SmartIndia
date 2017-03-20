@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.admin.smartindia.Models.UserMedicalHistoryData;
@@ -34,7 +35,6 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ItemView
         holder.hospitalName.setText(list.get(position).getName());
         holder.doctorName.setText(list.get(position).getDoctor());
         holder.issue.setText(list.get(position).getIssue());
-        holder.medicine.setText(list.get(position).getMedicine());
         holder.date.setText(list.get(position).getDate());
     }
 
@@ -48,7 +48,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ItemView
         private TextView hospitalName;
         private  TextView doctorName;
         private TextView issue;
-        private TextView medicine;
+        private Button medicine;
         private TextView date;
 
         public ItemViewHolder(View itemView) {
@@ -56,8 +56,8 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ItemView
             hospitalName= (TextView) itemView.findViewById(R.id.hospital_name);
             doctorName= (TextView) itemView.findViewById(R.id.doctor_name);
             issue= (TextView) itemView.findViewById(R.id.issue);
-            medicine= (TextView) itemView.findViewById(R.id.medicines);
             date= (TextView) itemView.findViewById(R.id.date);
+            medicine= (Button) itemView.findViewById(R.id.history_medicine_button);
         }
     }
 }
