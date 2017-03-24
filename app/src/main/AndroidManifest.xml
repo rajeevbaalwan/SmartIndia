@@ -18,7 +18,8 @@
         <activity android:name=".Activities.HistoryActivity" />
         <activity android:name=".Activities.AlergyActivity" />
         <activity android:name=".Activities.PendingMediclaimActivity" />
-        <activity android:name=".Activities.CompletedMediclaimActivity"></activity>
+        <activity android:name=".Activities.CompletedMediclaimActivity" />
+        <activity android:name=".Activities.ProfileActivity"></activity>
     </application>
 
 </manifest>

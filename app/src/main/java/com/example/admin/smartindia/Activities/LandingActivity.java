@@ -77,6 +77,7 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
         completedButton.setOnClickListener(this);
         mediclaimOptionsContainer.setOnClickListener(this);
         arrowIcon.setOnClickListener(this);
+        profileButton.setOnClickListener(this);
 
 
         bottomSheetCallback=new BottomSheetBehavior.BottomSheetCallback() {
@@ -189,6 +190,9 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
                     sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                 }
                 break;
+            case R.id.profile_button:
+                Intent intent=new Intent(LandingActivity.this,ProfileActivity.class);
+                startActivity(intent);
         }
     }
 
