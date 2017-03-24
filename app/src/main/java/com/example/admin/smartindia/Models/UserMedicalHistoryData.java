@@ -6,14 +6,14 @@ import java.io.Serializable;
  * Created by admin on 18/03/2017.
  */
 public class UserMedicalHistoryData implements Serializable {
-    private String name;
+    private String hname;
     private String doctor;
     private String issue;
     private String medicine;
     private String date;
 
-    public UserMedicalHistoryData(String name, String doctor, String issue, String medicine, String date) {
-        this.name = name;
+    public UserMedicalHistoryData(String hname, String doctor, String issue, String medicine, String date) {
+        this.hname = hname;
         this.doctor = doctor;
         this.issue = issue;
         this.medicine = medicine;
@@ -21,7 +21,7 @@ public class UserMedicalHistoryData implements Serializable {
     }
 
     public String getName() {
-        return name;
+        return hname;
     }
 
     public String getDoctor() {

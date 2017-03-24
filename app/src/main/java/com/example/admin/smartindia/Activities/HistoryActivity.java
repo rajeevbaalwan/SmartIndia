@@ -7,18 +7,31 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.admin.smartindia.Adapters.HistoryAdapter;
 import com.example.admin.smartindia.Models.UserMedicalHistoryData;
 import com.example.admin.smartindia.R;
+import com.example.admin.smartindia.Utilities.Constants;
+import com.example.admin.smartindia.Utilities.UtilMethods;
+import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HistoryActivity extends AppCompatActivity {
+public class HistoryActivity extends AppCompatActivity implements Constants{
 
     private Toolbar toolbar;
     private RecyclerView recyclerView;
     private HistoryAdapter historyAdapter;
+    private MaterialDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,15 +46,69 @@ public class HistoryActivity extends AppCompatActivity {
         recyclerView= (RecyclerView) findViewById(R.id.history_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        historyAdapter=new HistoryAdapter(getData(),this);
+        historyAdapter=new HistoryAdapter(new ArrayList<UserMedicalHistoryData>(),this);
         recyclerView.setAdapter(historyAdapter);
+
+        fetchDataFromServer();
     }
 
-    private List<UserMedicalHistoryData> getData() {
-        ArrayList<UserMedicalHistoryData> list=new ArrayList<>();
+    private void fetchDataFromServer() {
+        showProgressDialog("Fetching Your Medical History.....");
+        String url=BASE_URL+"";
+        OkHttpClient okHttpClient=new OkHttpClient();
+        Request request=new Request.Builder()
+                .get()
+                .url(url)
+                .build();
 
-        for(int i=0;i<10;i++){
-            list.add(new UserMedicalHistoryData("Hospital name","Doctor name","Issue","Medicines","Date"));
+        okHttpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Request request, IOException e) {
+                hideProgressDialog();
+                UtilMethods.ToastL(HistoryActivity.this,"Sorry Unable To Connect To Server.");
+            }
+
+            @Override
+            public void onResponse(Response response) throws IOException {
+                String result=response.body().string();
+                try {
+                    final JSONObject jsonObject=new JSONObject(result);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                historyAdapter.changeList(getData(jsonObject.getJSONArray("results")));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        hideProgressDialog();
+                    }
+                });
+            }
+        });
+    }
+
+    private List<UserMedicalHistoryData> getData(JSONArray results) throws JSONException {
+        ArrayList<UserMedicalHistoryData> list=new ArrayList<>();
+        for(int i=0;i<results.length();i++){
+            JSONObject object=results.optJSONObject(i);
+
+            String doctorName=object.getString("doctorName");
+            String hospitalName=object.getString("hospitalName");
+            String issue=object.getString("issue");
+            String date=object.getString("date");
+            String medicines=object.getString("medicine");
+            list.add(new UserMedicalHistoryData(hospitalName,doctorName,issue,medicines,date));
         }
         return list;
     }
@@ -54,5 +121,20 @@ public class HistoryActivity extends AppCompatActivity {
                 finish();
         }
         return true;
+    }
+
+    public void showProgressDialog(String msg){
+        progressDialog=new MaterialDialog.Builder(HistoryActivity.this)
+                .progress(true,100)
+                .content(msg)
+                .cancelable(false)
+                .build();
+        progressDialog.show();
+    }
+
+    public void hideProgressDialog(){
+        if(progressDialog!=null && progressDialog.isShowing()){
+            progressDialog.cancel();
+        }
     }
 }

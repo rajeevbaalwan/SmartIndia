@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
+import com.afollestad.materialdialogs.MaterialDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -17,13 +18,25 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.admin.smartindia.Models.UserCurrentMedicalData;
 import com.example.admin.smartindia.R;
+import com.example.admin.smartindia.Utilities.Constants;
+import com.example.admin.smartindia.Utilities.UtilMethods;
+import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LandingActivity extends AppCompatActivity implements View.OnClickListener {
+public class LandingActivity extends AppCompatActivity implements View.OnClickListener,Constants {
 
     private Toolbar toolbar;
     private LinearLayout historyButton;
@@ -38,10 +51,10 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
     private LinearLayout swipe_down;
     private LinearLayout swipe_up;
     private LinearLayout mediclaimButtons;
-    private int swipeFlag = 0;
-    private int startY, endY;
     private BottomSheetBehavior sheetBehavior;
     private BottomSheetBehavior.BottomSheetCallback bottomSheetCallback;
+    private MaterialDialog progressDialog;
+
 
     @Override
 
@@ -107,6 +120,61 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
             }
         };
         sheetBehavior.setBottomSheetCallback(bottomSheetCallback);
+
+        fetchDataFromServer();
+
+    }
+
+    private void fetchDataFromServer() {
+        String url=BASE_URL;
+
+        OkHttpClient okHttpClient=new OkHttpClient();
+
+        Request request=new Request.Builder()
+                .get()
+                .url(url)
+                .build();
+        okHttpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Request request, IOException e) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        hideProgressDialog();
+                        UtilMethods.ToastS(LandingActivity.this,"Sorry Unable To Connect to Server");
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Response response) throws IOException {
+                String result=response.body().string();
+                try {
+                    JSONObject jsonObject=new JSONObject(result);
+                    JSONArray jsonArray=jsonObject.getJSONArray("results");
+                    setCurrentData(jsonArray.getJSONObject(0));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    private void setCurrentData(JSONObject jsonObject) throws JSONException {
+        //set Current Data Here
+        TextView doctorName= (TextView) findViewById(R.id.current_treatment_doctor_name);
+        TextView hospitlaName= (TextView) findViewById(R.id.current_treatment_hospital_name);
+        TextView morningMedicine= (TextView) findViewById(R.id.current_treatment_morning_med_1);
+        TextView noonMedicine= (TextView) findViewById(R.id.current_treatment_noon_med_1);
+        TextView nightMedicine= (TextView) findViewById(R.id.current_treatment_night_med_1);
+        TextView food= (TextView) findViewById(R.id.current_treatment_food_1);
+
+        doctorName.setText(jsonObject.getString("doctorName"));
+        hospitlaName.setText(jsonObject.getString("hospitalName"));
+        morningMedicine.setText(jsonObject.getString("morningMed"));
+        noonMedicine.setText(jsonObject.getString("noonMed"));
+        nightMedicine.setText(jsonObject.getString("nightMed"));
+        food.setText(jsonObject.getString("food"));
     }
 
     private List<UserCurrentMedicalData> getData() {
@@ -132,7 +200,6 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
                 startActivity(intent2);
                 break;
             case R.id.mediclaim_status_button:
-                Log.d("qwerty","mediclaim");
                 mediclaimOptionsContainer.setVisibility(View.VISIBLE);
                 mediclaimButtons.animate().translationY(-Resources.getSystem()
                                           .getDisplayMetrics().heightPixels/2+80)
@@ -189,6 +256,21 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
                     sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                 }
                 break;
+        }
+    }
+
+    public void showProgressDialog(String msg){
+        progressDialog=new MaterialDialog.Builder(LandingActivity.this)
+                .progress(true,100)
+                .content(msg)
+                .cancelable(false)
+                .build();
+        progressDialog.show();
+    }
+
+    public void hideProgressDialog(){
+        if(progressDialog!=null && progressDialog.isShowing()){
+            progressDialog.cancel();
         }
     }
 

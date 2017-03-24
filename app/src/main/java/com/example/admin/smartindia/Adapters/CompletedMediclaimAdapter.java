@@ -53,4 +53,9 @@ public class CompletedMediclaimAdapter extends RecyclerView.Adapter<CompletedMed
             amount= (TextView) itemView.findViewById(R.id.completed_mediclaim_Amount);
         }
     }
+
+    public void changeList(List<CompletedMediclaimData>list){
+        this.list=list;
+        this.notifyDataSetChanged();
+    }
 }

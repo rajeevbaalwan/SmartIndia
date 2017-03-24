@@ -60,4 +60,9 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ItemView
             medicine= (Button) itemView.findViewById(R.id.history_medicine_button);
         }
     }
+
+    public  void changeList(List<UserMedicalHistoryData> list){
+        this.list=list;
+        this.notifyDataSetChanged();
+    }
 }

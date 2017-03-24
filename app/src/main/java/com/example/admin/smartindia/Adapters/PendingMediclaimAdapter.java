@@ -68,4 +68,9 @@ public class PendingMediclaimAdapter extends RecyclerView.Adapter<PendingMedicla
             remind= (Button) itemView.findViewById(R.id.pending_mediclaim_remind_button);
         }
     }
+
+    public void changeList(List<PendingMediclaimData>list){
+        this.list=list;
+        this.notifyDataSetChanged();
+    }
 }
