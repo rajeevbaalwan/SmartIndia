@@ -90,9 +90,9 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
         sharedPrefUtil = new SharedPrefUtil(LandingActivity.this);
 
 
-        initialiseMenuSocket();
+       // initialiseMenuSocket();
 
-        socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
+      /*  socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
             @Override
             public void call(Object... args) {
                 socket.emit(Constants.EVENT_REGISTER_USER,sharedPrefUtil.getLoggedInUser().getUserId());
@@ -128,7 +128,7 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
             }
 
         });
-
+*/
         /*recyclerView= (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter=new LandingAdapter(this,getData());
@@ -323,7 +323,7 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
                 }
                 break;
             case R.id.profile_button:
-                Intent intent=new Intent(LandingActivity.this,ProfileActivity.class);
+                Intent intent=new Intent(LandingActivity.this,RegisterActivity.class);
                 startActivity(intent);
         }
     }
@@ -348,7 +348,7 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
         super.onResume();
 
         if (socket==null){
-            initialiseMenuSocket();
+//            initialiseMenuSocket();
         }
 
         if (socket!=null && !socket.connected()){

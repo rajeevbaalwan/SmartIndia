@@ -13,7 +13,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Activities.LandingActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
             <intent-filter>
                 <action android:name="android.nfc.action.TECH_DISCOVERED" />
 
@@ -29,12 +33,8 @@
         <activity android:name=".Activities.PendingMediclaimActivity" />
         <activity android:name=".Activities.CompletedMediclaimActivity" />
         <activity android:name=".Activities.ProfileActivity" />
-        <activity android:name=".Activities.LoginActivity">  <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-        </activity>
+        <activity android:name=".Activities.LoginActivity"></activity>
+        <activity android:name=".Activities.RegisterActivity"></activity>
     </application>
 
 </manifest>

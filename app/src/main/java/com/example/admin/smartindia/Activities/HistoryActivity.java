@@ -12,6 +12,7 @@ import com.example.admin.smartindia.Adapters.HistoryAdapter;
 import com.example.admin.smartindia.Models.UserMedicalHistoryData;
 import com.example.admin.smartindia.R;
 import com.example.admin.smartindia.Utilities.Constants;
+import com.example.admin.smartindia.Utilities.SharedPrefUtil;
 import com.example.admin.smartindia.Utilities.UtilMethods;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.OkHttpClient;
@@ -32,6 +33,7 @@ public class HistoryActivity extends AppCompatActivity implements Constants{
     private RecyclerView recyclerView;
     private HistoryAdapter historyAdapter;
     private MaterialDialog progressDialog;
+    private SharedPrefUtil sharedPrefUtil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,19 +44,25 @@ public class HistoryActivity extends AppCompatActivity implements Constants{
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Your Medical History");
         toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_material);
-
+        sharedPrefUtil = new SharedPrefUtil(HistoryActivity.this);
         recyclerView= (RecyclerView) findViewById(R.id.history_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         historyAdapter=new HistoryAdapter(new ArrayList<UserMedicalHistoryData>(),this);
         recyclerView.setAdapter(historyAdapter);
 
-        //fetchDataFromServer();
+        fetchDataFromServer();
     }
 
-   /* private void fetchDataFromServer() {
+    private void fetchDataFromServer() {
         showProgressDialog("Fetching Your Medical History.....");
-        String url=BASE_URL+"";
+        String url=BASE_URL+"checkhistory?uniqueid="+sharedPrefUtil.getLoggedInUser().getUserId();
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                UtilMethods.ToastL(HistoryActivity.this,sharedPrefUtil.getLoggedInUser().getUserId());
+            }
+        });
         OkHttpClient okHttpClient=new OkHttpClient();
         Request request=new Request.Builder()
                 .get()
@@ -75,14 +83,15 @@ public class HistoryActivity extends AppCompatActivity implements Constants{
 
             @Override
             public void onResponse(Response response) throws IOException {
-                String result=response.body().string();
+                final String result=response.body().string();
                 try {
-                    final JSONObject jsonObject=new JSONObject(result);
+                    final JSONArray jsonArray=new JSONArray(result);
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             try {
-                                historyAdapter.changeList(getData(jsonObject.getJSONArray("results")));
+                                UtilMethods.ToastL(HistoryActivity.this,result);
+                                historyAdapter.changeList(getData(jsonArray));
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -101,15 +110,15 @@ public class HistoryActivity extends AppCompatActivity implements Constants{
                 });
             }
         });
-    }*/
+    }
 
     private List<UserMedicalHistoryData> getData(JSONArray results) throws JSONException {
         ArrayList<UserMedicalHistoryData> list=new ArrayList<>();
         for(int i=0;i<results.length();i++){
             JSONObject object=results.optJSONObject(i);
 
-            String doctorName=object.getString("doctorName");
-            String hospitalName=object.getString("hospitalName");
+            String doctorName=object.getString("docname");
+            String hospitalName=object.getString("hospname");
             String issue=object.getString("issue");
             String date=object.getString("date");
             String medicines=object.getString("medicine");
