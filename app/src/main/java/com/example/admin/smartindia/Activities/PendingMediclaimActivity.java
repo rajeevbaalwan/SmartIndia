@@ -52,12 +52,12 @@ public class PendingMediclaimActivity extends AppCompatActivity implements Const
         toolbar= (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Your Pending MediClaims");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_material);
 
-        fetchDataFromServer();
+        //fetchDataFromServer();
     }
 
-    private void fetchDataFromServer() {
+    /*private void fetchDataFromServer() {
         showProgressDialog("Fetching Your Pending Mediclaims");
         String url=BASE_URL+" ";
         OkHttpClient okHttpClient=new OkHttpClient();
@@ -69,8 +69,13 @@ public class PendingMediclaimActivity extends AppCompatActivity implements Const
         okHttpClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Request request, IOException e) {
-                hideProgressDialog();
-                UtilMethods.ToastL(PendingMediclaimActivity.this,"Sorry Unable To Connect To Server");
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        hideProgressDialog();
+                        UtilMethods.ToastL(PendingMediclaimActivity.this,"Sorry Unable To Connect To Server");
+                    }
+                });
             }
 
             @Override
@@ -101,7 +106,7 @@ public class PendingMediclaimActivity extends AppCompatActivity implements Const
                 });
             }
         });
-    }
+    }*/
 
     private List<PendingMediclaimData> getData(JSONArray results) throws JSONException {
         ArrayList<PendingMediclaimData> list=new ArrayList<>();

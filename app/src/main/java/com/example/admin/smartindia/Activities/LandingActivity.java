@@ -122,11 +122,11 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
         };
         sheetBehavior.setBottomSheetCallback(bottomSheetCallback);
 
-        fetchDataFromServer();
+        //fetchDataFromServer();
 
     }
 
-    private void fetchDataFromServer() {
+   /* private void fetchDataFromServer() {
         String url=BASE_URL;
 
         OkHttpClient okHttpClient=new OkHttpClient();
@@ -159,7 +159,7 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
                 }
             }
         });
-    }
+    }*/
 
     private void setCurrentData(JSONObject jsonObject) throws JSONException {
         //set Current Data Here

@@ -49,12 +49,12 @@ public class CompletedMediclaimActivity extends AppCompatActivity implements Con
         toolbar= (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Completed MediClaims");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_material);
 
-        fetchDataFromServer();
+        //fetchDataFromServer();
     }
 
-    private void fetchDataFromServer() {
+   /* private void fetchDataFromServer() {
         showProgressDialog("Fetching Your Completed Mediclaims....");
         String url=BASE_URL+"";
 
@@ -68,8 +68,13 @@ public class CompletedMediclaimActivity extends AppCompatActivity implements Con
         okHttpClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Request request, IOException e) {
-                hideProgressDialog();
-                UtilMethods.ToastL(CompletedMediclaimActivity.this,"Sorry Unable To Connect To Server");
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        hideProgressDialog();
+                        UtilMethods.ToastL(CompletedMediclaimActivity.this,"Sorry Unable To Connect To Server");
+                    }
+                });
             }
 
             @Override
@@ -99,7 +104,7 @@ public class CompletedMediclaimActivity extends AppCompatActivity implements Con
                 });
             }
         });
-    }
+    }*/
 
     private List<CompletedMediclaimData> getData(JSONArray results) throws JSONException {
         ArrayList<CompletedMediclaimData> list=new ArrayList<>();

@@ -41,7 +41,7 @@ public class HistoryActivity extends AppCompatActivity implements Constants{
         toolbar= (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Your Medical History");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_material);
 
         recyclerView= (RecyclerView) findViewById(R.id.history_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -49,10 +49,10 @@ public class HistoryActivity extends AppCompatActivity implements Constants{
         historyAdapter=new HistoryAdapter(new ArrayList<UserMedicalHistoryData>(),this);
         recyclerView.setAdapter(historyAdapter);
 
-        fetchDataFromServer();
+        //fetchDataFromServer();
     }
 
-    private void fetchDataFromServer() {
+   /* private void fetchDataFromServer() {
         showProgressDialog("Fetching Your Medical History.....");
         String url=BASE_URL+"";
         OkHttpClient okHttpClient=new OkHttpClient();
@@ -64,8 +64,13 @@ public class HistoryActivity extends AppCompatActivity implements Constants{
         okHttpClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Request request, IOException e) {
-                hideProgressDialog();
-                UtilMethods.ToastL(HistoryActivity.this,"Sorry Unable To Connect To Server.");
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        hideProgressDialog();
+                        UtilMethods.ToastL(HistoryActivity.this,"Sorry Unable To Connect To Server.");
+                    }
+                });
             }
 
             @Override
@@ -96,7 +101,7 @@ public class HistoryActivity extends AppCompatActivity implements Constants{
                 });
             }
         });
-    }
+    }*/
 
     private List<UserMedicalHistoryData> getData(JSONArray results) throws JSONException {
         ArrayList<UserMedicalHistoryData> list=new ArrayList<>();
