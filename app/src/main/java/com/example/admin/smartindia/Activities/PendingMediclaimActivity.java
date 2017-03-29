@@ -51,7 +51,7 @@ public class PendingMediclaimActivity extends AppCompatActivity implements Const
 
         toolbar= (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Your Pending MediClaims");
+        getSupportActionBar().setTitle("Pending MediClaims");
         toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_material);
 
         //fetchDataFromServer();
