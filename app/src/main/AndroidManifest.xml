@@ -2,10 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.admin.smartindia">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.BIND_NFC_SERVICE" />
-    <uses-permission android:name="android.permission.NFC" />
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -13,28 +9,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Activities.LandingActivity">
-
             <intent-filter>
-                <action android:name="android.nfc.action.TECH_DISCOVERED" />
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-            <meta-data
-                android:name="android.nfc.action.TECH_DISCOVERED"
-                android:resource="@xml/nfc_tech_filter" />
         </activity>
         <activity android:name=".Activities.HistoryActivity" />
-        <activity android:name=".Activities.AlergyActivity" />
         <activity android:name=".Activities.PendingMediclaimActivity" />
         <activity android:name=".Activities.CompletedMediclaimActivity" />
         <activity android:name=".Activities.ProfileActivity" />
-        <activity android:name=".Activities.LoginActivity">  <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-        </activity>
+        <activity android:name=".Activities.LoginActivity" />
+        <activity android:name=".Activities.AllergyActivity" />
     </application>
 
 </manifest>

@@ -1,140 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.example.admin.smartindia.Activities.ProfileActivity">
+    tools:context=".Activities.RegisterActivity">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:id="@+id/register_image"
+        android:src="@drawable/alex"
+        android:scaleType="centerCrop"/>
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:fitsSystemWindows="true"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
-        <android.support.design.widget.CollapsingToolbarLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="exitUntilCollapsed|scroll">
-
-            <FrameLayout
-                android:id="@+id/frame_layout"
-                android:layout_width="match_parent"
-                android:layout_height="250dp"
-                app:layout_collapseMode="parallax">
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                    <ImageView
-                        android:id="@+id/profile_image"
-                        android:layout_width="match_parent"
-                        android:layout_height="250dp"
-                        android:src="@drawable/alexandra"
-                        android:scaleType="centerCrop"/>
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="70dp"
-                        android:layout_alignParentBottom="true"
-                        android:background="@drawable/gradient_bg">
-                        <ImageView
-                            android:id="@+id/my_profile_image_edit"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/edit_user_male"
-                            android:layout_alignParentRight="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_margin="5dp"/>
-                    </RelativeLayout>
-                </RelativeLayout>
-            </FrameLayout>
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin"
-                android:popupTheme="@style/Base.ThemeOverlay.AppCompat.Light">
-            </android.support.v7.widget.Toolbar>
-        </android.support.design.widget.CollapsingToolbarLayout>
-    </android.support.design.widget.AppBarLayout>
 
     <android.support.v7.widget.CardView
+        android:layout_below="@id/register_image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="5dp"
+        app:cardCornerRadius="5dp"
         android:layout_margin="5dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <TextView
-                android:id="@+id/my_profile_user_name"
+        app:cardElevation="5dp">
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="User Name"
-                android:textSize="18sp"
-                android:padding="5dp"
-                android:textStyle="bold"
-                android:layout_marginTop="10dp"/>
-            <TextView
-                android:id="@+id/my_profile_user_adhaar"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:hint="Full Name"
+                    android:textSize="18sp"
+                    android:padding="3dp"
+                    android:id="@+id/reg_full_name"/>
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Adhaar"
-                android:textSize="18sp"
-                android:padding="5dp"
-                android:textStyle="bold"
-                android:layout_marginTop="5dp"/>
-            <TextView
-                android:id="@+id/my_profile_user_phone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Phone Number"
-                android:textSize="18sp"
-                android:padding="5dp"
-                android:textStyle="bold"
-                android:layout_marginTop="5dp"/>
-            <TextView
-                android:id="@+id/my_profile_user_email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Email"
-                android:textSize="18sp"
-                android:padding="5dp"
-                android:textStyle="bold"
-                android:layout_marginTop="5dp"/>
-            <TextView
-                android:id="@+id/my_profile_user_dob"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Date_of_birth"
-                android:textSize="18sp"
-                android:padding="5dp"
-                android:textStyle="bold"
-                android:layout_marginTop="5dp"/>
-            <TextView
-                android:id="@+id/my_profile_user_blood_group"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Blood Group"
-                android:textSize="18sp"
-                android:padding="5dp"
-                android:textStyle="bold"
-                android:layout_marginTop="5dp"/>
-            <TextView
-                android:id="@+id/my_profile_user_address"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Address"
-                android:textSize="18sp"
-                android:padding="5dp"
-                android:textStyle="bold"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="10dp"/>
-        </LinearLayout>
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_marginTop="12dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Aadhar : "
+                    android:textSize="18sp"
+                    android:padding="3dp"/>
+                <TextView
+                    android:layout_marginTop="12dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Aadhar Number"
+                    android:textSize="18sp"
+                    android:padding="3dp"
+                    android:id="@+id/reg_aadhar"/>
+            </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="12dp">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="2"
+                            android:layout_height="wrap_content"
+                            android:hint="Date of Birth"
+                            android:padding="3dp"
+                            android:textSize="18sp"
+                            android:id="@+id/reg_dob"/>
+
+                        <TextView
+                            android:textStyle="bold"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:hint="Blood Group"
+                            android:layout_weight="1"
+                            android:padding="3dp"
+                            android:textSize="18sp"
+                            android:textColor="@android:color/holo_blue_dark"
+                            android:id="@+id/reg_blood_group"/>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="12dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="2"
+                            android:layout_height="wrap_content"
+                            android:hint="E-mail"
+                            android:padding="3dp"
+                            android:textSize="18sp"
+                            android:id="@+id/reg_mail"/>
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:hint="Phone"
+                            android:padding="3dp"
+                            android:textSize="18sp"
+                            android:id="@+id/reg_phone"/>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Address : "
+                        android:padding="3dp"
+                        android:textSize="18sp"
+                        android:layout_marginTop="12dp"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Address"
+                        android:padding="3dp"
+                        android:textSize="18sp"
+                        android:layout_marginTop="12dp"
+                        android:id="@+id/reg_address"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
 
     </android.support.v7.widget.CardView>
-</android.support.design.widget.CoordinatorLayout>
+
+</RelativeLayout>
