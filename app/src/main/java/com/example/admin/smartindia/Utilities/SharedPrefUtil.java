@@ -20,6 +20,7 @@ public class SharedPrefUtil {
     private String KEY_EMAIL = "email";
     private String KEY_PHONE = "phone";
     private String KEY_ADDRESS = "address";
+    private String KEY_USER_ID = "user_id";
     private Context context;
 
     public SharedPrefUtil(Context context) {
@@ -34,6 +35,7 @@ public class SharedPrefUtil {
 
     public void startRegisterSession(User user){
         editor.putBoolean(KEY_LOGGED_IN,true);
+        editor.putString(KEY_USER_ID,user.getUserId());
         editor.putString(KEY_USER_NAME,user.getUserName());
         editor.putString(KEY_AADHAR,user.getUserAadhar());
         editor.putString(KEY_DOB,user.getUserDob());
@@ -49,7 +51,7 @@ public class SharedPrefUtil {
     }
 
     public User getLoggedInUser(){
-        return new User(sharedPreferences.getString(KEY_ADDRESS,null),sharedPreferences.getString(KEY_PHONE,null)
+        return new User(sharedPreferences.getString(KEY_USER_ID,null),sharedPreferences.getString(KEY_ADDRESS,null),sharedPreferences.getString(KEY_PHONE,null)
                         ,sharedPreferences.getString(KEY_EMAIL,null),sharedPreferences.getString(KEY_BLOOD_GROUP,null)
                         ,sharedPreferences.getString(KEY_DOB,null),sharedPreferences.getString(KEY_AADHAR,null)
                         ,sharedPreferences.getString(KEY_USER_NAME,null));

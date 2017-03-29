@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.admin.smartindia.Models.User;
 import com.example.admin.smartindia.R;
 import com.example.admin.smartindia.Utilities.SharedPrefUtil;
 
@@ -40,7 +41,10 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                sharedPrefUtil.startRegisterSession(new User("abfrt","abcd","abcd","abcd","abcd","abcd","abcd","abcd"));
+                Intent intent = new Intent(LoginActivity.this,LandingActivity.class);
+                startActivity(intent);
+                LoginActivity.this.finish();
             }
         });
     }

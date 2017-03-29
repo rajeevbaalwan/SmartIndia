@@ -2,11 +2,26 @@ package com.example.admin.smartindia.Activities;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
+import android.nfc.NfcAdapter;
+import android.nfc.Tag;
+import android.os.Build;
+import android.preference.RingtonePreference;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
+
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -22,7 +37,11 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.admin.smartindia.Models.UserCurrentMedicalData;
 import com.example.admin.smartindia.R;
 import com.example.admin.smartindia.Utilities.Constants;
+import com.example.admin.smartindia.Utilities.SharedPrefUtil;
 import com.example.admin.smartindia.Utilities.UtilMethods;
+import com.github.nkzawa.emitter.Emitter;
+import com.github.nkzawa.socketio.client.IO;
+import com.github.nkzawa.socketio.client.Socket;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -33,6 +52,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,7 +73,11 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
     private LinearLayout mediclaimButtons;
     private BottomSheetBehavior sheetBehavior;
     private BottomSheetBehavior.BottomSheetCallback bottomSheetCallback;
+    private static final int RC_NFC = 1234;
     private MaterialDialog progressDialog;
+    private   final String TAG  = LandingActivity.this.getClass().getName();
+    private SharedPrefUtil sharedPrefUtil;
+    private Socket socket;
 
 
     @Override
@@ -63,6 +87,47 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.activity_landing);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        sharedPrefUtil = new SharedPrefUtil(LandingActivity.this);
+
+
+        initialiseMenuSocket();
+
+        socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
+            @Override
+            public void call(Object... args) {
+                socket.emit(Constants.EVENT_REGISTER_USER,sharedPrefUtil.getLoggedInUser().getUserId());
+            }
+        });
+
+        socket.on(Constants.EVENT_NOTIFY, new Emitter.Listener() {
+            @Override
+            public void call(Object... args){
+                Log.d(TAG,"hiii");
+                JSONObject jsonObject = (JSONObject) args[0];
+                try{
+                    if(jsonObject.getString("id").equals(sharedPrefUtil.getLoggedInUser().getUserId())){
+                    Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                    final Ringtone ringtone = RingtoneManager.getRingtone(getApplicationContext(), notification);
+                    ringtone.play();
+                    new MaterialDialog.Builder(LandingActivity.this)
+                            .content("Doctor is Calling you.....")
+                            .cancelable(false)
+                            .title("Your Turn....")
+                            .positiveText("OK")
+                            .onPositive(new MaterialDialog.SingleButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                    dialog.cancel();
+
+                                    ringtone.stop();
+                                }
+                            })
+                            .show();
+                }
+            }catch (JSONException e){e.printStackTrace();}
+            }
+
+        });
 
         /*recyclerView= (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -276,6 +341,102 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
         if(progressDialog!=null && progressDialog.isShowing()){
             progressDialog.cancel();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (socket==null){
+            initialiseMenuSocket();
+        }
+
+        if (socket!=null && !socket.connected()){
+            socket.connect();
+        }
+
+        if (NfcAdapter.ACTION_TECH_DISCOVERED.equals(getIntent().getAction()) ){
+
+            processNfcTag(getIntent());
+        }
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+     //   Log.d(TAG,"On Pause is called");
+    }
+
+    void processNfcTag(Intent intent){
+        Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+        Log.d(TAG,sharedPrefUtil.getLoggedInUser().getUserId());
+
+        if(socket==null) {
+            initialiseMenuSocket();
+        }
+
+        if (socket!=null && !socket.connected()){
+            socket.connect();
+        }
+
+
+
+    }
+
+
+
+
+
+    void initialiseMenuSocket(){
+
+        try{
+            socket = IO.socket(Constants.SOCKET_SERVER);
+            socket.connect();
+            Log.d(TAG,"Connecting to Menu Socket Server");
+        }catch (URISyntaxException e){
+            e.printStackTrace();
+        }
+
+        if (!socket.connected()){
+            socket.connect();
+        }
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+
+    }
+
+
+
+    void showSwitchOnNfcDialog(){
+
+        new AlertDialog.Builder(LandingActivity.this)
+                .setMessage("NFC Is Not Enabled. In Order To Enjoy Our Services Enable Your Wifi..")
+                .setCancelable(false)
+                .setPositiveButton("ENABLE NFC", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                            Intent intent = new Intent(Settings.ACTION_NFC_SETTINGS);
+                            startActivityForResult(intent,RC_NFC);
+                        } else {
+                            Intent intent = new Intent(Settings.ACTION_WIRELESS_SETTINGS);
+                            startActivityForResult(intent,RC_NFC);
+                        }
+                    }
+                })
+                .setNegativeButton("EXIT", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        LandingActivity.this.finish();
+                    }
+                })
+                .create().show();
     }
 
 }

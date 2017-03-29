@@ -9,13 +9,15 @@ public class User implements Serializable{
     private String userName;
     private String userAadhar;
     private String userDob;
+    private String userId;
     private String userBloodGroup;
     private String userEmail;
     private String userPhone;
     private String userAddress;
 
-    public User(String userAddress, String userPhone, String userEmail, String userBloodGroup, String userDob, String userAadhar, String userName) {
+    public User(String userId ,String userAddress, String userPhone, String userEmail, String userBloodGroup, String userDob, String userAadhar, String userName) {
         this.userAddress = userAddress;
+        this.userId = userId;
         this.userPhone = userPhone;
         this.userEmail = userEmail;
         this.userBloodGroup = userBloodGroup;
@@ -52,4 +54,7 @@ public class User implements Serializable{
         return userAddress;
     }
 
+    public String getUserId() {
+        return userId;
+    }
 }
