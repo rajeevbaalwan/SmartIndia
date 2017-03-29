@@ -78,16 +78,19 @@ public class RegisterActivity extends Activity implements Constants{
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //registerUserOnServer();
+                registerUserOnServer();
             }
         });
 
     }
 
-   /* private void registerUserOnServer() {
+    private void registerUserOnServer() {
         showProgressDialog("Registering You On Server Please Wait....");
-        String url=BASE_URL+"";
-
+        String url=BASE_URL+"register?name="+userName.getText().toString()+"&aadhar="+userAdhaar.getText().toString()+
+                "&birth_date="+userDob.getText().toString()+"&blood_group="+userBloodGroup.getText().toString()+
+                "&email="+userEmail.getText().toString()+"&phone="+userPhone.getText().toString()+
+                "&address="+userAddress.getText().toString();
+        url=url.replaceAll(" ","%20");
         OkHttpClient okHttpClient=new OkHttpClient();
         Request request=new Request.Builder()
                 .get()
@@ -96,11 +99,12 @@ public class RegisterActivity extends Activity implements Constants{
 
         okHttpClient.newCall(request).enqueue(new Callback() {
             @Override
-            public void onFailure(Request request, IOException e) {
+            public void onFailure(Request request, final IOException e) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         hideProgressDialog();
+                        e.printStackTrace();
                         UtilMethods.ToastL(RegisterActivity.this,"Sorry Unable To Connect To Server");
                     }
                 });
@@ -111,30 +115,28 @@ public class RegisterActivity extends Activity implements Constants{
                 String result=response.body().string();
                 try {
                     JSONObject jsonObject=new JSONObject(result);
-                    if (jsonObject.getBoolean("status")){
-                        sharedPrefUtil.startRegisterSession(new User(userAddress.getText().toString(),
-                                userPhone.getText().toString(),userEmail.getText().toString(),
-                                userBloodGroup.getText().toString(),userDob.getText().toString(),
-                                userAdhaar.getText().toString(),userName.getText().toString()));
-                        Intent intent=new Intent(RegisterActivity.this,LandingActivity.class);
-                        startActivity(intent);
-                        RegisterActivity.this.finish();
-                    }
-                    else{
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                hideProgressDialog();
-                                UtilMethods.ToastL(RegisterActivity.this,"Sorry Unable To Connect To Server");
-                            }
-                        });
-                    }
+
+                    final String s=jsonObject.getString("uniqueid");
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            UtilMethods.ToastL(RegisterActivity.this,s);
+                        }
+                    });
+
+                    sharedPrefUtil.startRegisterSession(new User(s,userAddress.getText().toString(),
+                            userPhone.getText().toString(),userEmail.getText().toString(),
+                            userBloodGroup.getText().toString(),userDob.getText().toString(),
+                            userAdhaar.getText().toString(),userName.getText().toString()));
+                    Intent intent=new Intent(RegisterActivity.this,LandingActivity.class);
+                    startActivity(intent);
+                    RegisterActivity.this.finish();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
         });
-    }*/
+    }
 
     public void showProgressDialog(String msg){
         progressDialog=new MaterialDialog.Builder(RegisterActivity.this)
