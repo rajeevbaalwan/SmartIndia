@@ -262,7 +262,7 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
                 startActivity(intent1);
                 break;
             case R.id.alergic_button:
-                Intent intent2=new Intent(LandingActivity.this,AlergyActivity.class);
+                Intent intent2=new Intent(LandingActivity.this,AllergyActivity.class);
                 startActivity(intent2);
                 break;
             case R.id.mediclaim_status_button:

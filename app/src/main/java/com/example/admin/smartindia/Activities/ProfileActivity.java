@@ -38,15 +38,14 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        userName= (TextView) findViewById(R.id.my_profile_user_name);
-        userAdhaar= (TextView) findViewById(R.id.my_profile_user_adhaar);
-        userPhone= (TextView) findViewById(R.id.my_profile_user_phone);
-        userEmail= (TextView) findViewById(R.id.my_profile_user_email);
-        userDob= (TextView) findViewById(R.id.my_profile_user_dob);
-        userBloodGroup= (TextView) findViewById(R.id.my_profile_user_blood_group);
-        userAddress= (TextView) findViewById(R.id.my_profile_user_address);
-        profileImageEditButton= (ImageView) findViewById(R.id.my_profile_image_edit);
-        profileImage= (ImageView) findViewById(R.id.profile_image);
+        userName= (TextView) findViewById(R.id.reg_full_name);
+        userAdhaar= (TextView) findViewById(R.id.reg_aadhar);
+        userPhone= (TextView) findViewById(R.id.reg_phone);
+        userEmail= (TextView) findViewById(R.id.reg_mail);
+        userDob= (TextView) findViewById(R.id.reg_dob);
+        userBloodGroup= (TextView) findViewById(R.id.reg_blood_group);
+        userAddress= (TextView) findViewById(R.id.reg_address);
+        profileImage= (ImageView) findViewById(R.id.register_image);
 
         toolbar= (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

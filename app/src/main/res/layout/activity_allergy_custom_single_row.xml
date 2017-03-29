@@ -19,7 +19,7 @@
             android:id="@+id/allergic_reaction"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Allergic Reaction"
+            android:hint="Allergic Reaction"
             android:gravity="center"
             android:padding="6dp"
             android:textSize="18sp"/>
