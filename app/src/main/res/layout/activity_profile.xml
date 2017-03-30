@@ -42,6 +42,7 @@
                         android:textSize="18sp"
                         android:padding="3dp"
                         android:id="@+id/reg_full_name"/>
+
                 </LinearLayout>
 
             <LinearLayout
@@ -52,7 +53,7 @@
                     android:layout_marginTop="12dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="Aadhar : "
+                    android:text="Aadhar : "
                     android:textSize="18sp"
                     android:padding="3dp"/>
                 <TextView
@@ -65,76 +66,108 @@
                     android:id="@+id/reg_aadhar"/>
             </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="12dp">
+                    <LinearLayout
+                        android:layout_marginTop="12dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
                         <TextView
-                            android:layout_width="0dp"
-                            android:layout_weight="2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="D.O.B. : "
+                            android:padding="3dp"
+                            android:textSize="18sp"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="Date of Birth"
                             android:padding="3dp"
                             android:textSize="18sp"
                             android:id="@+id/reg_dob"/>
+                    </LinearLayout>
 
-                        <TextView
-                            android:textStyle="bold"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:hint="Blood Group"
-                            android:layout_weight="1"
-                            android:padding="3dp"
-                            android:textSize="18sp"
-                            android:textColor="@android:color/holo_blue_dark"
-                            android:id="@+id/reg_blood_group"/>
-
-                </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginTop="12dp">
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_weight="2"
-                            android:layout_height="wrap_content"
-                            android:hint="E-mail"
-                            android:padding="3dp"
-                            android:textSize="18sp"
-                            android:id="@+id/reg_mail"/>
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:layout_height="wrap_content"
-                            android:hint="Phone"
-                            android:padding="3dp"
-                            android:textSize="18sp"
-                            android:id="@+id/reg_phone"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Blood Group : "
+                        android:padding="3dp"
+                        android:textSize="18sp"/>
+                    <TextView
+                        android:textStyle="bold"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:hint="Blood Group"
+                        android:layout_weight="1"
+                        android:padding="3dp"
+                        android:textSize="18sp"
+                        android:textColor="@android:color/holo_blue_dark"
+                        android:id="@+id/reg_blood_group"/>
 
                 </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="12dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Phone Number : "
+                        android:padding="3dp"
+                        android:textSize="18sp"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Phone"
+                        android:padding="3dp"
+                        android:textSize="18sp"
+                        android:id="@+id/reg_phone"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="12dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="E-mail : "
+                        android:padding="3dp"
+                        android:textSize="18sp"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="E-mail"
+                        android:padding="3dp"
+                        android:textSize="18sp"
+                        android:id="@+id/reg_mail"/>
+
+                </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_marginTop="12dp">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Address : "
                         android:padding="3dp"
-                        android:textSize="18sp"
-                        android:layout_marginTop="12dp"/>
+                        android:textSize="18sp"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Address"
                         android:padding="3dp"
                         android:textSize="18sp"
-                        android:layout_marginTop="12dp"
                         android:id="@+id/reg_address"/>
-
                 </LinearLayout>
 
             </LinearLayout>
