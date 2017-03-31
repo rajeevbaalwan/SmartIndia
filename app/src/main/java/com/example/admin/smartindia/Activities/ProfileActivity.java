@@ -46,9 +46,9 @@ public class ProfileActivity extends AppCompatActivity {
         userBloodGroup= (TextView) findViewById(R.id.reg_blood_group);
         userAddress= (TextView) findViewById(R.id.reg_address);
         profileImage= (ImageView) findViewById(R.id.register_image);
-
         toolbar= (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Profie");
         toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_material);
 
         sharedPrefUtil=new SharedPrefUtil(ProfileActivity.this);
@@ -62,13 +62,13 @@ public class ProfileActivity extends AppCompatActivity {
         userBloodGroup.setText(user.getUserBloodGroup());
         userAddress.setText(user.getUserAddress());
 
-        profileImageEditButton.setOnClickListener(new View.OnClickListener() {
+        /*profileImageEditButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(intent,RESULT_LOAD_IMAGE);
             }
-        });
+        });*/
     }
 
     @Override

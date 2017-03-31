@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#eceff7"
     android:fitsSystemWindows="true"
+    android:id="@+id/history_activity_coordinater_layout"
     tools:context="com.example.admin.smartindia.Activities.HistoryActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -29,11 +31,27 @@
             
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/history_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
     </android.support.v7.widget.RecyclerView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/history_medicine_textview_container">
+        <TextView
+            android:id="@+id/history_medicine_textview"
+            android:layout_margin="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Medicines"
+            android:textSize="22sp"
+            android:layout_alignParentBottom="true"
+            android:padding="5dp"/>
+    </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>

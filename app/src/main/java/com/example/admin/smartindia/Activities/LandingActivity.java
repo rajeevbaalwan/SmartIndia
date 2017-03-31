@@ -88,7 +88,7 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         sharedPrefUtil = new SharedPrefUtil(LandingActivity.this);
-
+        fetchDataFromServer();
 
        // initialiseMenuSocket();
 
@@ -187,12 +187,11 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
         };
         sheetBehavior.setBottomSheetCallback(bottomSheetCallback);
 
-        //fetchDataFromServer();
-
     }
 
-   /* private void fetchDataFromServer() {
-        String url=BASE_URL;
+    private void fetchDataFromServer() {
+        showProgressDialog("Fetching Your Current status");
+        String url=BASE_URL+"checkhistory?uniqueid="+sharedPrefUtil.getLoggedInUser().getUserId();
 
         OkHttpClient okHttpClient=new OkHttpClient();
 
@@ -207,27 +206,43 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
                     @Override
                     public void run() {
                         hideProgressDialog();
-                        UtilMethods.ToastS(LandingActivity.this,"Sorry Unable To Connect to Server");
+                        UtilMethods.ToastS(LandingActivity.this, "Sorry Unable To Connect to Server");
                     }
                 });
             }
 
             @Override
             public void onResponse(Response response) throws IOException {
-                String result=response.body().string();
+                 final String result = response.body().string();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        hideProgressDialog();
+                    }
+                });
                 try {
-                    JSONObject jsonObject=new JSONObject(result);
-                    JSONArray jsonArray=jsonObject.getJSONArray("results");
-                    setCurrentData(jsonArray.getJSONObject(0));
+                    final JSONArray jsonArray = new JSONArray(result);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+
+                                setCurrentData(jsonArray.getJSONObject(0));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+
             }
         });
-    }*/
+    }
 
     private void setCurrentData(JSONObject jsonObject) throws JSONException {
-        //set Current Data Here
         TextView doctorName= (TextView) findViewById(R.id.current_treatment_doctor_name);
         TextView hospitlaName= (TextView) findViewById(R.id.current_treatment_hospital_name);
         TextView morningMedicine= (TextView) findViewById(R.id.current_treatment_morning_med_1);
@@ -235,23 +250,13 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
         TextView nightMedicine= (TextView) findViewById(R.id.current_treatment_night_med_1);
         TextView food= (TextView) findViewById(R.id.current_treatment_food_1);
 
-        doctorName.setText(jsonObject.getString("doctorName"));
-        hospitlaName.setText(jsonObject.getString("hospitalName"));
-        morningMedicine.setText(jsonObject.getString("morningMed"));
-        noonMedicine.setText(jsonObject.getString("noonMed"));
-        nightMedicine.setText(jsonObject.getString("nightMed"));
-        food.setText(jsonObject.getString("food"));
+        doctorName.setText(jsonObject.getString("docname").replaceAll("^\\s+|\\s+$",""));
+        hospitlaName.setText(jsonObject.getString("hospname").replaceAll("^\\s+|\\s+$",""));
+        morningMedicine.setText(jsonObject.getString("medicine").replaceAll("^\\s+|\\s+$","").replaceAll(",","\n"));
+        noonMedicine.setText(jsonObject.getString("medicine").replaceAll("^\\s+|\\s+$","").replaceAll(",","\n"));
+        nightMedicine.setText(jsonObject.getString("medicine").replaceAll("^\\s+|\\s+$","").replaceAll(",","\n"));
+        food.setText(jsonObject.getString("food").replaceAll("^\\s+|\\s+$","").replaceAll(",","\n"));
     }
-
-    private List<UserCurrentMedicalData> getData() {
-        ArrayList list = new ArrayList<>();
-        for (int i = 0; i < 8; i++) {
-            list.add(new UserCurrentMedicalData("time" + (i + 1), "Med" + (i + 1)));
-        }
-        return list;
-    }
-
-
 
     @Override
     public void onClick(View view) {
@@ -323,7 +328,7 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
                 }
                 break;
             case R.id.profile_button:
-                Intent intent=new Intent(LandingActivity.this,RegisterActivity.class);
+                Intent intent=new Intent(LandingActivity.this,ProfileActivity.class);
                 startActivity(intent);
         }
     }
@@ -384,10 +389,6 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
 
     }
 
-
-
-
-
     void initialiseMenuSocket(){
 
         try{
@@ -438,5 +439,13 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
                 })
                 .create().show();
     }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        fetchDataFromServer();
+    }
+
+
 
 }

@@ -1,11 +1,14 @@
 package com.example.admin.smartindia.Activities;
 
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.admin.smartindia.Adapters.HistoryAdapter;
@@ -31,6 +34,9 @@ public class HistoryActivity extends AppCompatActivity implements Constants{
 
     private Toolbar toolbar;
     private RecyclerView recyclerView;
+    private RelativeLayout medicineTextviewContainer;
+    private TextView medicineTextview;
+    private CoordinatorLayout coordinatorLayout;
     private HistoryAdapter historyAdapter;
     private MaterialDialog progressDialog;
     private SharedPrefUtil sharedPrefUtil;
@@ -41,6 +47,9 @@ public class HistoryActivity extends AppCompatActivity implements Constants{
         setContentView(R.layout.activity_history);
 
         toolbar= (Toolbar) findViewById(R.id.toolbar);
+        medicineTextviewContainer= (RelativeLayout) findViewById(R.id.history_medicine_textview_container);
+        medicineTextview= (TextView) findViewById(R.id.history_medicine_textview);
+        coordinatorLayout= (CoordinatorLayout) findViewById(R.id.history_activity_coordinater_layout);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Your Medical History");
         toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_material);
@@ -48,7 +57,8 @@ public class HistoryActivity extends AppCompatActivity implements Constants{
         recyclerView= (RecyclerView) findViewById(R.id.history_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        historyAdapter=new HistoryAdapter(new ArrayList<UserMedicalHistoryData>(),this);
+        historyAdapter=new HistoryAdapter(new ArrayList<UserMedicalHistoryData>(),this,
+                medicineTextviewContainer,medicineTextview,coordinatorLayout);
         recyclerView.setAdapter(historyAdapter);
 
         fetchDataFromServer();
@@ -57,12 +67,7 @@ public class HistoryActivity extends AppCompatActivity implements Constants{
     private void fetchDataFromServer() {
         showProgressDialog("Fetching Your Medical History.....");
         String url=BASE_URL+"checkhistory?uniqueid="+sharedPrefUtil.getLoggedInUser().getUserId();
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                UtilMethods.ToastL(HistoryActivity.this,sharedPrefUtil.getLoggedInUser().getUserId());
-            }
-        });
+
         OkHttpClient okHttpClient=new OkHttpClient();
         Request request=new Request.Builder()
                 .get()
@@ -90,7 +95,7 @@ public class HistoryActivity extends AppCompatActivity implements Constants{
                         @Override
                         public void run() {
                             try {
-                                UtilMethods.ToastL(HistoryActivity.this,result);
+                               // UtilMethods.ToastL(HistoryActivity.this,result);
                                 historyAdapter.changeList(getData(jsonArray));
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -117,11 +122,11 @@ public class HistoryActivity extends AppCompatActivity implements Constants{
         for(int i=0;i<results.length();i++){
             JSONObject object=results.optJSONObject(i);
 
-            String doctorName=object.getString("docname");
-            String hospitalName=object.getString("hospname");
-            String issue=object.getString("issue");
-            String date=object.getString("date");
-            String medicines=object.getString("medicine");
+            String doctorName=object.getString("docname").replaceAll("^\\s+|\\s+$","");
+            String hospitalName=object.getString("hospname").replaceAll("^\\s+|\\s+$","");
+            String issue=object.getString("issue").replaceAll("^\\s+|\\s+$","");
+            String date=object.getString("date").replaceAll("^\\s+|\\s+$","");
+            String medicines=object.getString("medicine").replaceAll("^\\s+|\\s+$","");
             list.add(new UserMedicalHistoryData(hospitalName,doctorName,issue,medicines,date));
         }
         return list;
