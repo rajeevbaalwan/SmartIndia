@@ -26,15 +26,15 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ItemView
     private Context context;
     private TextView medicineTextview;
     private RelativeLayout medicineTextviewContainer;
-    private CoordinatorLayout coordinatorLayout;
+    private RecyclerView recyclerView;
 
     public HistoryAdapter(List<UserMedicalHistoryData> list, Context context, RelativeLayout
-            medicineTextviewContainer, TextView medicineTextview, CoordinatorLayout coordinatorLayout) {
+            medicineTextviewContainer, TextView medicineTextview, RecyclerView recyclerView) {
         this.list = list;
         this.context = context;
         this.medicineTextview=medicineTextview;
         this.medicineTextviewContainer=medicineTextviewContainer;
-        this.coordinatorLayout=coordinatorLayout;
+        this.recyclerView=recyclerView;
     }
 
     @Override
@@ -43,24 +43,23 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ItemView
     }
 
     @Override
-    public void onBindViewHolder(ItemViewHolder holder, int position) {
-        coordinatorLayout.onViewAdded(medicineTextviewContainer);
+    public void onBindViewHolder(ItemViewHolder holder, final int position) {
         holder.hospitalName.setText(list.get(position).getName());
         holder.doctorName.setText(list.get(position).getDoctor());
         holder.issue.setText(list.get(position).getIssue());
         holder.date.setText(list.get(position).getDate());
-        medicineTextview.setText(list.get(position).getMedicine());
         holder.medicine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                medicineTextview.setText(list.get(position).getMedicine());
+                medicineTextviewContainer.setVisibility(View.VISIBLE);
                 medicineTextview.animate()
-                        .translationY(-Resources.getSystem()
-                        .getDisplayMetrics().heightPixels/2)
+                        .translationY(-recyclerView.getHeight()/2)
                         .setDuration(500)
                         .setListener(new AnimatorListenerAdapter() {
                             @Override
                             public void onAnimationStart(Animator animation) {
-                                medicineTextviewContainer.animate()
+                                recyclerView.animate()
                                         .alpha(0.1f)
                                         .setDuration(500);
                             }
@@ -68,7 +67,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ItemView
             }
         });
 
-        coordinatorLayout.setOnClickListener(new View.OnClickListener() {
+        medicineTextviewContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 medicineTextview.animate()
@@ -78,7 +77,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ItemView
                         .setListener(new AnimatorListenerAdapter() {
                             @Override
                             public void onAnimationStart(Animator animation) {
-                                medicineTextviewContainer.animate()
+                                recyclerView.animate()
                                         .alpha(1.0f)
                                         .setDuration(500);
                             }

@@ -6,9 +6,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -26,6 +28,7 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView userDob;
     private TextView userBloodGroup;
     private TextView userAddress;
+    private FloatingActionButton emergencyButton;
     private User user;
     private SharedPrefUtil sharedPrefUtil;
     private Toolbar toolbar;
@@ -46,9 +49,11 @@ public class ProfileActivity extends AppCompatActivity {
         userBloodGroup= (TextView) findViewById(R.id.reg_blood_group);
         userAddress= (TextView) findViewById(R.id.reg_address);
         profileImage= (ImageView) findViewById(R.id.register_image);
+        emergencyButton= (FloatingActionButton) findViewById(R.id.emergency_floating_button);
+
         toolbar= (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Profie");
+        getSupportActionBar().setTitle("Profile");
         toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_material);
 
         sharedPrefUtil=new SharedPrefUtil(ProfileActivity.this);
@@ -61,6 +66,14 @@ public class ProfileActivity extends AppCompatActivity {
         userDob.setText(user.getUserDob());
         userBloodGroup.setText(user.getUserBloodGroup());
         userAddress.setText(user.getUserAddress());
+
+        emergencyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(ProfileActivity.this,EmergencyActivity.class);
+                startActivity(intent);
+            }
+        });
 
         /*profileImageEditButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,5 +100,13 @@ public class ProfileActivity extends AppCompatActivity {
 
             profileImage.setImageBitmap(BitmapFactory.decodeFile(picturePath));
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id=item.getItemId();
+        if(id==android.R.id.home)
+            this.finish();
+        return  true;
     }
 }

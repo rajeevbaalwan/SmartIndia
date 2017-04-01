@@ -1,7 +1,9 @@
 package com.example.admin.smartindia.Activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -36,6 +38,7 @@ public class PendingMediclaimActivity extends AppCompatActivity implements Const
     private Toolbar toolbar;
     private CoordinatorLayout coordinatorLayout;
     private MaterialDialog progressDialog;
+    private FloatingActionButton emergencyButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +48,7 @@ public class PendingMediclaimActivity extends AppCompatActivity implements Const
         coordinatorLayout= (CoordinatorLayout) findViewById(R.id.pending_mediclaim_coordinator_layout);
         recyclerView= (RecyclerView) findViewById(R.id.pending_mediclaim_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        emergencyButton= (FloatingActionButton) findViewById(R.id.emergency_floating_button);
 
         adapter=new PendingMediclaimAdapter(this,new ArrayList<PendingMediclaimData>(),coordinatorLayout);
         recyclerView.setAdapter(adapter);
@@ -53,6 +57,14 @@ public class PendingMediclaimActivity extends AppCompatActivity implements Const
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Pending MediClaims");
         toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_material);
+
+        emergencyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(PendingMediclaimActivity.this,EmergencyActivity.class);
+                startActivity(intent);
+            }
+        });
 
         //fetchDataFromServer();
     }

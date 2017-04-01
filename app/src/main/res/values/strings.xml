@@ -3,7 +3,7 @@
 
     <string-array name="hospital_names">
         <item>Dr. Shailesh Puntambekar Hospital</item>
-        <item>Karve Children's Hospital</item>
+        <item>Karve Children Hospital</item>
         <item>Dr. Tepan Memorial Hospital</item>
         <item>Sancheti Hospital</item>
         <item>National Institute of Ophthalmology(NIO)</item>
@@ -50,7 +50,7 @@
     <string-array name="hospital_helpline">
         <item>020 3024 4100</item>
         <item>020 2634 3300</item>
-        <item>020 2553 5181</item> Building, Survey No 28/1, Bhamburda, Narveer Tanaji Wadi, Shivajinagar
+        <item>020 2553 5181</item>
         <item>020 2899 9999</item>
         <item>020 2553 6369</item>
         <item>020 4109 5000</item>

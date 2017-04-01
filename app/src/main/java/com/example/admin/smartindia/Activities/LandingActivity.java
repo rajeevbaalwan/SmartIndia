@@ -25,6 +25,7 @@ import android.support.design.widget.BottomSheetBehavior;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.PermissionChecker;
 import android.support.v7.app.AlertDialog;
@@ -71,11 +72,13 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
     private LinearLayout mediclaimStatusButton;
     private Button pendingButton;
     private Button completedButton;
+    private FloatingActionButton emergencyButton;
     private LinearLayout profileButton;
     private ImageView arrowIcon;
     private LinearLayout bottomSheetButtonsLayout;
     private RelativeLayout mediclaimOptionsContainer;
     private LinearLayout swipe_down;
+    private String allergicReaction;
     private LinearLayout swipe_up;
     private LinearLayout mediclaimButtons;
     private BottomSheetBehavior sheetBehavior;
@@ -164,6 +167,7 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
         bottomSheetButtonsLayout = (LinearLayout) findViewById(R.id.bottom_sheet_buttons_layout);
         mediclaimOptionsContainer = (RelativeLayout) findViewById(R.id.mediclaim_option_buttons_container);
         sheetBehavior=BottomSheetBehavior.from(findViewById(R.id.bottom_sheet));
+        emergencyButton= (FloatingActionButton) findViewById(R.id.emergency_floating_button);
 
         historyButton.setOnClickListener(this);
         alergiesButton.setOnClickListener(this);
@@ -173,12 +177,12 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
         mediclaimOptionsContainer.setOnClickListener(this);
         arrowIcon.setOnClickListener(this);
         profileButton.setOnClickListener(this);
+        emergencyButton.setOnClickListener(this);
 
 
         bottomSheetCallback=new BottomSheetBehavior.BottomSheetCallback() {
             @Override
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
-
             }
 
             @Override
@@ -244,7 +248,7 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
                         public void run() {
                             try {
 
-                                setCurrentData(jsonArray.getJSONObject(0));
+                                setCurrentData(jsonArray.getJSONObject(jsonArray.length()-1));
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -267,6 +271,7 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
         TextView nightMedicine= (TextView) findViewById(R.id.current_treatment_night_med_1);
         TextView food= (TextView) findViewById(R.id.current_treatment_food_1);
 
+        allergicReaction=jsonObject.getString("issue").replaceAll("^\\s+|\\s+$","");
         doctorName.setText(jsonObject.getString("docname").replaceAll("^\\s+|\\s+$",""));
         hospitlaName.setText(jsonObject.getString("hospname").replaceAll("^\\s+|\\s+$",""));
         morningMedicine.setText(jsonObject.getString("medicine").replaceAll("^\\s+|\\s+$","").replaceAll(",","\n"));
@@ -285,6 +290,7 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.alergic_button:
                 Intent intent2=new Intent(LandingActivity.this,AllergyActivity.class);
+                intent2.putExtra("allergy",allergicReaction);
                 startActivity(intent2);
                 break;
             case R.id.mediclaim_status_button:
@@ -345,8 +351,13 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
                 }
                 break;
             case R.id.profile_button:
-                Intent intent=new Intent(LandingActivity.this,ProfileActivity.class);
-                startActivity(intent);
+                Intent intent5=new Intent(LandingActivity.this,ProfileActivity.class);
+                startActivity(intent5);
+
+            case R.id.emergency_floating_button:
+                Intent intent6=new Intent(LandingActivity.this,EmergencyActivity.class);
+                startActivity(intent6);
+                break;
         }
     }
 
@@ -456,13 +467,4 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
                 })
                 .create().show();
     }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        fetchDataFromServer();
-    }
-
-
-
 }

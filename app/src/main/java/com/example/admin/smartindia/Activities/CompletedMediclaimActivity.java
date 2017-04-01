@@ -1,5 +1,7 @@
 package com.example.admin.smartindia.Activities;
 
+import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.admin.smartindia.Adapters.CompletedMediclaimAdapter;
@@ -34,6 +37,7 @@ public class CompletedMediclaimActivity extends AppCompatActivity implements Con
     private CompletedMediclaimAdapter adapter;
     private Toolbar toolbar;
     private MaterialDialog progressDialog;
+    private FloatingActionButton emergencyButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +46,7 @@ public class CompletedMediclaimActivity extends AppCompatActivity implements Con
 
         recyclerView= (RecyclerView) findViewById(R.id.completed_mediclaim_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        emergencyButton= (FloatingActionButton) findViewById(R.id.emergency_floating_button);
 
         adapter=new CompletedMediclaimAdapter(this,new ArrayList<CompletedMediclaimData>());
         recyclerView.setAdapter(adapter);
@@ -50,6 +55,14 @@ public class CompletedMediclaimActivity extends AppCompatActivity implements Con
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Completed MediClaims");
         toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_material);
+
+        emergencyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(CompletedMediclaimActivity.this,EmergencyActivity.class);
+                startActivity(intent);
+            }
+        });
 
         //fetchDataFromServer();
     }

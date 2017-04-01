@@ -8,7 +8,7 @@
     android:background="#eceff7"
     android:fitsSystemWindows="true"
     android:id="@+id/history_activity_coordinater_layout"
-    tools:context="com.example.admin.smartindia.Activities.HistoryActivity">
+    tools:context="com.example.admin.smartindia.Activities.EmergencyActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -28,12 +28,12 @@
                 app:layout_collapseMode="pin"
                 android:popupTheme="@style/Base.ThemeOverlay.AppCompat.Light">
             </android.support.v7.widget.Toolbar>
-            
+
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/history_recycler_view"
+        android:id="@+id/emergency_activity_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -56,13 +56,4 @@
             android:layout_alignParentBottom="true"
             android:padding="5dp"/>
     </RelativeLayout>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/emergency_floating_button"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        app:backgroundTint="@color/colorAccent"
-        android:layout_gravity="bottom|right|end"
-        android:layout_margin="20dp"
-        android:src="@drawable/emergency_icon"/>
 </android.support.design.widget.CoordinatorLayout>

@@ -9,8 +9,9 @@
     tools:context=".Activities.RegisterActivity">
 
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/profile_activity_app_bar_layout"
         android:layout_width="match_parent"
-        android:layout_height="350dp"
+        android:layout_height="180dp"
         android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
         <android.support.design.widget.CollapsingToolbarLayout
@@ -19,6 +20,12 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:contentScrim="@color/colorPrimary"
             android:fitsSystemWindows="true">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/register_image"
+                android:scaleType="centerCrop"
+                app:layout_collapseMode="parallax"/>
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
@@ -26,27 +33,18 @@
                 app:layout_collapseMode="pin">
 
             </android.support.v7.widget.Toolbar>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:id="@+id/register_image"
-                android:scaleType="centerCrop"
-                app:layout_collapseMode="parallax"/>
-
         </android.support.design.widget.CollapsingToolbarLayout>
 
     </android.support.design.widget.AppBarLayout>
 
-
-    <android.support.v7.widget.CardView
-        android:layout_below="@id/register_image"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="5dp"
-        android:layout_margin="5dp"
-        app:cardElevation="5dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <android.support.v7.widget.CardView
+            android:layout_below="@id/profile_activity_app_bar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="5dp"
+            android:layout_margin="5dp"
+            app:cardElevation="5dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -55,16 +53,19 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
                     <TextView
+                        android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:text="Full Name : "
                         android:textSize="18sp"
                         android:padding="3dp"/>
                     <TextView
+                        android:layout_weight="2"
                         android:layout_height="wrap_content"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:hint="Full Name"
                         android:textSize="18sp"
                         android:padding="3dp"
@@ -72,46 +73,52 @@
 
                 </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_marginTop="12dp"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Aadhar : "
-                    android:textSize="18sp"
-                    android:padding="3dp"/>
-                <TextView
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:layout_marginTop="12dp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Aadhar : "
+                        android:textSize="18sp"
+                        android:padding="3dp"/>
+                    <TextView
+                        android:layout_weight="2"
+                        android:layout_marginTop="12dp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:hint="Aadhar Number"
+                        android:textSize="18sp"
+                        android:padding="3dp"
+                        android:id="@+id/reg_aadhar"/>
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_marginTop="12dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Aadhar Number"
-                    android:textSize="18sp"
-                    android:padding="3dp"
-                    android:id="@+id/reg_aadhar"/>
-            </LinearLayout>
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="D.O.B. : "
+                        android:padding="3dp"
+                        android:textSize="18sp"/>
 
-                    <LinearLayout
-                        android:layout_marginTop="12dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="D.O.B. : "
-                            android:padding="3dp"
-                            android:textSize="18sp"/>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="Date of Birth"
-                            android:padding="3dp"
-                            android:textSize="18sp"
-                            android:id="@+id/reg_dob"/>
-                    </LinearLayout>
+                    <TextView
+                        android:layout_weight="2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:hint="Date of Birth"
+                        android:padding="3dp"
+                        android:textSize="18sp"
+                        android:id="@+id/reg_dob"/>
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -120,7 +127,8 @@
                     android:layout_marginTop="12dp">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:text="Blood Group : "
                         android:padding="3dp"
@@ -130,7 +138,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:hint="Blood Group"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:padding="3dp"
                         android:textSize="18sp"
                         android:textColor="@android:color/holo_blue_dark"
@@ -141,15 +149,18 @@
                 <LinearLayout
                     android:layout_marginTop="12dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Phone Number : "
+                        android:text="Phone : "
                         android:padding="3dp"
                         android:textSize="18sp"/>
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_weight="2"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:hint="Phone"
                         android:padding="3dp"
@@ -160,16 +171,19 @@
                 <LinearLayout
                     android:layout_marginTop="12dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:text="E-mail : "
                         android:padding="3dp"
                         android:textSize="18sp"/>
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_weight="2"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:hint="E-mail"
                         android:padding="3dp"
@@ -177,28 +191,37 @@
                         android:id="@+id/reg_mail"/>
 
                 </LinearLayout>
-
                 <LinearLayout
+                    android:layout_marginTop="12dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp">
+                    android:orientation="horizontal">
+
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Address : "
+                        android:text="E-mail : "
                         android:padding="3dp"
                         android:textSize="18sp"/>
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_weight="2"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:hint="Address"
+                        android:hint="E-mail"
                         android:padding="3dp"
                         android:textSize="18sp"
                         android:id="@+id/reg_address"/>
+
                 </LinearLayout>
-
-            </LinearLayout>
-
-    </android.support.v7.widget.CardView>
-
+        </LinearLayout>
+        </android.support.v7.widget.CardView>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/emergency_floating_button"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:backgroundTint="@color/colorAccent"
+        android:layout_gravity="bottom|right|end"
+        android:layout_margin="20dp"
+        android:src="@drawable/emergency_icon"/>
 </android.support.design.widget.CoordinatorLayout>

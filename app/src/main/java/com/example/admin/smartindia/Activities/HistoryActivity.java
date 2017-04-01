@@ -1,12 +1,15 @@
 package com.example.admin.smartindia.Activities;
 
+import android.content.Intent;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -40,6 +43,7 @@ public class HistoryActivity extends AppCompatActivity implements Constants{
     private HistoryAdapter historyAdapter;
     private MaterialDialog progressDialog;
     private SharedPrefUtil sharedPrefUtil;
+    private FloatingActionButton emergencyButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +53,7 @@ public class HistoryActivity extends AppCompatActivity implements Constants{
         toolbar= (Toolbar) findViewById(R.id.toolbar);
         medicineTextviewContainer= (RelativeLayout) findViewById(R.id.history_medicine_textview_container);
         medicineTextview= (TextView) findViewById(R.id.history_medicine_textview);
+        emergencyButton= (FloatingActionButton) findViewById(R.id.emergency_floating_button);
         coordinatorLayout= (CoordinatorLayout) findViewById(R.id.history_activity_coordinater_layout);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Your Medical History");
@@ -58,8 +63,16 @@ public class HistoryActivity extends AppCompatActivity implements Constants{
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         historyAdapter=new HistoryAdapter(new ArrayList<UserMedicalHistoryData>(),this,
-                medicineTextviewContainer,medicineTextview,coordinatorLayout);
+                medicineTextviewContainer,medicineTextview,recyclerView);
         recyclerView.setAdapter(historyAdapter);
+
+        emergencyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(HistoryActivity.this,EmergencyActivity.class);
+                startActivity(intent);
+            }
+        });
 
         fetchDataFromServer();
     }

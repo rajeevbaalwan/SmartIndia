@@ -23,13 +23,11 @@ public class LoginActivity extends AppCompatActivity {
         if(sharedPrefUtil.isLoggedIn()){
             Intent intent=new Intent(LoginActivity.this,LandingActivity.class);
             startActivity(intent);
+            this.finish();
         }
         else{
             Intent intent=new Intent(LoginActivity.this,RegisterActivity.class);
             startActivity(intent);
-            
         }
-
-
     }
 }

@@ -102,7 +102,7 @@
                         android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:text="Alergies"
+                        android:text="Allergies"
                         android:textSize="25sp"
                         android:textStyle="bold"
                         android:gravity="top|center_horizontal"
@@ -192,7 +192,6 @@
         android:id="@+id/mediclaim_option_buttons_container">
 
         <LinearLayout
-            android:visibility="visible"
             android:id="@+id/mediclaim_option_buttons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
