@@ -1,3 +1,61 @@
 <resources>
     <string name="app_name">"SmartIndia "</string>
+
+    <string-array name="hospital_names">
+        <item>Dr. Shailesh Puntambekar Hospital</item>
+        <item>Karve Children's Hospital</item>
+        <item>Dr. Tepan Memorial Hospital</item>
+        <item>Sancheti Hospital</item>
+        <item>National Institute of Ophthalmology(NIO)</item>
+        <item>Deccan Multispeciality Hardikar Hospital</item>
+        <item>Cloudline Hospital - Shivaji Nagar</item>
+        <item>Gupte Hospital</item>
+    </string-array>
+
+    <string-array name="hospital_address">
+        <item>25-A, Ayurvedic Rasashala Premises, Maharshi Karve Rd,Khilarewadi,Erandwane,Pune,Maharashtra 411004</item>
+        <item>1325, J M Road, Opp Modern School, Shivaji Nagar, Pune, Maharashtra</item>
+        <item>Survey No 1187/13, Chiroda Niwas, Next To NIO, Ghole Road, Shivajinagar, Pune, Maharashtra 411005</item>
+        <item>11/12 Thube Park, 16, Shivajinagar, Narveer tanaji Wadi,Pune, maharashtra 411005</item>
+        <item>1187/30, Off Gale Road, Near Mahatma Phule Museum, Shivaji Nagar, Pune, Maharashtra 411005</item>
+        <item>1160/61, University Road, Shivajinagar, Revenue Colony, Pune, Maharashtra 411005</item>
+        <item>Axon Building, Survey No 28/1, Bhamburda, Narveer Tanaji Wadi, Shivajinagar, Pune, Maharashtra 411005</item>
+        <item>904, Bhandarkar Road, Deccan GymKhana, Pune, Maharashtra</item>
+    </string-array>
+
+    <string-array name="hospital_specialist">
+        <item>Hospital</item>
+        <item>Childrens Hospital</item>
+        <item>ENT Specialist</item>
+        <item>Hospital</item>
+        <item>Eye Hospital</item>
+        <item>Multi-Speciality</item>
+        <item>Maternity Centre</item>
+        <item>Hospital</item>
+
+    </string-array>
+
+    <string-array name="hospital_open_hours">
+        <item>Open 24 hours</item>
+        <item>No Data</item>
+        <item>Open 24 hours</item>
+        <item>Open 24 hours</item>
+        <item>Open 9:00 AM-7:00 PM</item>
+        <item>No Data</item>
+        <item>Open 24 hours</item>
+        <item>No Data</item>
+
+    </string-array>
+
+    <string-array name="hospital_helpline">
+        <item>020 3024 4100</item>
+        <item>020 2634 3300</item>
+        <item>020 2553 5181</item> Building, Survey No 28/1, Bhamburda, Narveer Tanaji Wadi, Shivajinagar
+        <item>020 2899 9999</item>
+        <item>020 2553 6369</item>
+        <item>020 4109 5000</item>
+        <item>1800 500 9999</item>
+        <item>020 2540 1700</item>
+    </string-array>
+
 </resources>

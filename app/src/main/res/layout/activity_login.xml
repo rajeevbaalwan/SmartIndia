@@ -34,10 +34,20 @@
         <Button
             android:id="@+id/login_button"
             android:background="@drawable/round_corner_rectangular_button"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="30dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Login"
+            android:textSize="20sp"
+            android:textColor="@android:color/white"
+            />
+        <Button
+            android:id="@+id/sign_up__button"
+            android:background="@drawable/round_corner_rectangular_button"
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SIGN UP"
             android:textSize="20sp"
             android:textColor="@android:color/white"
             />
