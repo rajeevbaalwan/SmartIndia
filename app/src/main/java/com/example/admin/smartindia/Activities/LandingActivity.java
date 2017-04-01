@@ -1,11 +1,14 @@
 package com.example.admin.smartindia.Activities;
 
+import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
@@ -13,6 +16,7 @@ import android.net.Uri;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.os.Build;
+import android.os.health.PackageHealthStats;
 import android.preference.RingtonePreference;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
@@ -21,6 +25,8 @@ import android.support.design.widget.BottomSheetBehavior;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.PermissionChecker;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -53,6 +59,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.security.Permissions;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -88,11 +95,16 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         sharedPrefUtil = new SharedPrefUtil(LandingActivity.this);
+
+        if (ActivityCompat.checkSelfPermission(LandingActivity.this,Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(LandingActivity.this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},574);
+        }
+
         fetchDataFromServer();
 
-       // initialiseMenuSocket();
+       initialiseMenuSocket();
 
-      /*  socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
+        socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
             @Override
             public void call(Object... args) {
                 socket.emit(Constants.EVENT_REGISTER_USER,sharedPrefUtil.getLoggedInUser().getUserId());
@@ -103,32 +115,37 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
             @Override
             public void call(Object... args){
                 Log.d(TAG,"hiii");
-                JSONObject jsonObject = (JSONObject) args[0];
-                try{
-                    if(jsonObject.getString("id").equals(sharedPrefUtil.getLoggedInUser().getUserId())){
+
+
                     Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
                     final Ringtone ringtone = RingtoneManager.getRingtone(getApplicationContext(), notification);
                     ringtone.play();
-                    new MaterialDialog.Builder(LandingActivity.this)
-                            .content("Doctor is Calling you.....")
-                            .cancelable(false)
-                            .title("Your Turn....")
-                            .positiveText("OK")
-                            .onPositive(new MaterialDialog.SingleButtonCallback() {
-                                @Override
-                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                    dialog.cancel();
 
-                                    ringtone.stop();
-                                }
-                            })
-                            .show();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        new MaterialDialog.Builder(LandingActivity.this)
+                                .content("Doctor is Calling you.....")
+                                .cancelable(false)
+                                .title("Your Turn....")
+                                .positiveText("OK")
+                                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                                    @Override
+                                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                        dialog.cancel();
+
+                                        ringtone.stop();
+                                    }
+                                })
+                                .show();
+                    }
+                });
+
                 }
-            }catch (JSONException e){e.printStackTrace();}
-            }
+
 
         });
-*/
+
         /*recyclerView= (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter=new LandingAdapter(this,getData());
@@ -353,7 +370,7 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
         super.onResume();
 
         if (socket==null){
-//            initialiseMenuSocket();
+            initialiseMenuSocket();
         }
 
         if (socket!=null && !socket.connected()){

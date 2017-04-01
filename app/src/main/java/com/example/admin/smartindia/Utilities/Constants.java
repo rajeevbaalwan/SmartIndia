@@ -5,7 +5,7 @@ package com.example.admin.smartindia.Utilities;
  */
 public interface Constants {
     String BASE_URL="http://192.168.43.121:5000/api/";
-    String SOCKET_SERVER = "locl";
+    String SOCKET_SERVER = "http://192.168.43.121:3000/";
     String EVENT_REGISTER_USER = "new_user_req";
     String EVENT_NOTIFY = "notify_user";
 }
